@@ -7,7 +7,7 @@ plt.ion()
 
 st.title('Hackuta 2023')
 
-df = pd.read_csv('utd-grades/raw_data/Fall 2022.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/HackUTA-23/utd-grades/master/raw_data/Fall%202022.csv')
 # combine subject, catalog, and section columns into one column
 df['course'] = df['Subject'] + ' ' + df['Catalog Nbr'] + ' ' + df['Section']
 # remove the subject, catalog, and section columns, since they are not needed anymore
