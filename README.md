@@ -16,9 +16,11 @@ View More info on the [Devpost](https://devpost.com/software/grade-information?r
 
 # Installation Steps
 First clone the repository with 
+
 `git clone https://github.com/HackUTA-23/GradeDistribution.git`
 
 Now install all the required libraries with 
+
 `pip install -r requirements.txt`
 
 Now you may notice a couple of python and ipynb files. Here is the file structure for the python files that we will be working with:
@@ -39,6 +41,7 @@ Welcome.py
 ```
 
 To start the streamlit application and open it on a `localhost` server, start welcome.py with:
+
 `streamlit run Welcome.py`
 
 # How it works
@@ -50,4 +53,4 @@ The CSV files were obtained from UT Dallas raw grade distribution files and we u
 
 
 # Contribution and Pull Request
-If interested in contributing to our codebase, feel free to read the docs for pull request best practices to get started!
+If interested in contributing to our codebase, feel free to read the docs for creating a new issue best practices to get started!
