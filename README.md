@@ -44,6 +44,9 @@ To start the streamlit application and open it on a `localhost` server, start we
 
 `streamlit run Welcome.py`
 
+<img width="1680" alt="Screenshot 2023-10-08 at 10 54 40 AM" src="https://github.com/HackUTA-23/GradeDistribution/assets/9218849/01a0698f-3b02-460a-bc93-0b9d1a40993b">
+
+
 # How it works
 The streamlit application is split into multiple pages depending on whether you want to analyze grades or GPA.
 
@@ -52,5 +55,5 @@ The Welcome page is the starting page of the application and the pages under `pa
 The CSV files were obtained from UT Dallas raw grade distribution files and we used pandas and matplotlib to filter and visualize the data.
 
 
-# Contribution and Pull Request
-If interested in contributing to our codebase, feel free to read the docs for creating a new issue best practices to get started!
+# Contributing and Pull Request 
+If interested in contributing to our codebase, feel free to check out the issues tab to report your first issue! Also pull requests must be linked to an issue to keep everything tidy 🧹
