@@ -5,14 +5,26 @@ import matplotlib.pyplot as plt
 # Set Matplotlib to interactive mode
 plt.ion()
 
+# Define the custom color mapping dictionary
+color_map = {
+    'A+': 'green', 'A': 'green', 'A-': 'green',
+    'B+': 'blue', 'B': 'blue', 'B-': 'blue',
+    'C+': 'orange', 'C': 'orange', 'C-': 'orange',
+    'D+': 'red', 'D': 'red', 'D-': 'red',
+    'F': 'black'
+}
+
 st.title('HackUTA 2023')
 
-df = pd.read_csv('https://raw.githubusercontent.com/HackUTA-23/utd-grades/master/raw_data/Fall%202022.csv')
+csv_options = ['Fall 2022', 'Fall 2021', 'Fall 2020', 'Fall 2019', 'Fall 2018', 'Fall 2017']
+csv = st.selectbox('Select a semester', csv_options)
+
+df = pd.read_csv('csv/' + csv + '.csv')
 # combine subject, catalog, and section columns into one column
-df['course'] = df['Subject'] + ' ' + df['Catalog Nbr'] + ' ' + df['Section']
+df['course'] = df['Subject'] + ' ' + df['Catalog Number'] + ' ' + df['Section']
 # remove the subject, catalog, and section columns, since they are not needed anymore
-df = df.drop(columns=['Subject', 'Catalog Nbr', 'Section'])
-df = df.drop(columns=['P', 'CR', 'NC', 'I', 'W', 'Instructor 1', 'Instructor 2', 'Instructor 3', 'Instructor 4', 'Instructor 5', 'Instructor 6'])
+# drop all columns except course and grades
+df = df[['course', 'A', 'A-', 'A+', 'B', 'B-', 'B+', 'C', 'C-', 'C+', 'D', 'D-', 'D+', 'F']]
 # set the course column as the index
 df = df.set_index('course')
 
@@ -20,10 +32,9 @@ df = df.set_index('course')
 course = st.selectbox('Select a course', df.index)
 
 # Streamlit plot for the selected course
-# color the grades different color
-color = ['green', 'blue', 'orange', 'red']
-# 'A+', 'A', 'A-' should be green, 'B+', 'B', 'B-' should be blue, 'C+', 'C', 'C-' should be orange, 'D+', 'D', 'D-' should be red, 'F' should be black
-df.loc[course].plot.bar(color=color)
+# color the grades using the custom color mapping dictionary
+colors = [color_map[grade] for grade in df.loc[course].index]
+df.loc[course].plot.bar(color=colors)
 
 plt.xticks(rotation=0)
 plt.xlabel('Grades')
@@ -31,12 +42,8 @@ plt.ylabel('Number of Students')
 plt.title('Grade Distribution for ' + course)
 st.pyplot(plt)  # Display the Matplotlib figure in Streamlit
 
-# Optional: If you still want to use Matplotlib for more customization, you can use plt functions like below:
-# plt.bar(df.columns, df.iloc[0])
-# plt.xlabel('Grades')
-# plt.ylabel('Number of Students')
-# plt.title('Grade Distribution for ' + df.index[0])
-# st.pyplot(plt)  # Display the Matplotlib figure in Streamlit
+# graph the same data as percentage
+
 
 # Optionally, you can disable interactive mode after plotting if you don't plan to create more plots
 # plt.ioff()
