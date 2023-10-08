@@ -50,9 +50,32 @@ course = st.selectbox('Select a course', df.index)
 colors = [color_map[grade] for grade in df.loc[course].index]
 df.loc[course].plot.bar(color=colors)
 
+
+ax = df.loc[course].plot.bar(color=colors)
+
 plt.xticks(rotation=0)
 plt.xlabel('Grades')
 plt.ylabel('Number of Students')
 plt.title('Grade Distribution for ' + course)
+# Add labels above the bars
+for i, v in enumerate(df.loc[course]):
+    ax.text(i, v + 0, str(v), color='black', ha='center',  va='bottom', fontsize=8)
+
 st.pyplot(plt)  # Display the Matplotlib figure in Streamlit
 
+st.write('Grade distribution as a percentage:')
+total_students = df.loc[course].sum()
+percentage_data = df.loc[course] / total_students * 100
+plt.figure()
+percentage_ax = percentage_data.plot.bar(color=colors)
+
+plt.xticks(rotation=0)
+plt.xlabel('Grades')
+plt.ylabel('Percentage of Students')
+plt.ylim(0, 100)
+plt.title('Grade Distribution as Percentage for ' + course)
+
+for i, v in enumerate(percentage_data):
+    percentage_ax.text(i, v + 0, f'{v:.2f}%', color='black', ha='center', va='bottom', fontsize=8)
+
+st.pyplot(plt)  # Display the Matplotlib figure in Streamlit
