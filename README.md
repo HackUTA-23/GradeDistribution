@@ -52,7 +52,7 @@ The streamlit application is split into multiple pages depending on whether you 
 
 The Welcome page is the starting page of the application and the pages under `pages/` are used for the data querying and visualization.
 
-The CSV files were obtained from UT Dallas raw grade distribution files and we used pandas and matplotlib to filter and visualize the data.
+The CSV files were obtained from [UT Dallas raw grade distribution files](https://github.com/HackUTA-23/utd-grades/tree/master/raw_data) and we used pandas and matplotlib to filter and visualize the data.
 
 
 # Contributing and Pull Request 
