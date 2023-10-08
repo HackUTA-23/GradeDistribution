@@ -8,9 +8,7 @@ st.set_page_config(page_title="Grade Distribution Demo", page_icon="〰️")
 st.markdown("# Grade Distribution Demo")
 st.sidebar.header("Grade Distribution Demo")
 st.write(
-    """This demo illustrates a combination of plotting and animation with
-Streamlit. We're generating a bunch of random numbers in a loop for around
-5 seconds. Enjoy!"""
+    """This demo illustrates a combination of the grade distribution for each class and section over the years. This can indicate grade inflation or deflation in a course. Users can also see the grade distribution as a percentage."""
 )
 
 
@@ -26,14 +24,12 @@ color_map = {
     'F': 'black'
 }
 
-st.title('Grade Distribution Analyzer')
-
 csv_options = ['Fall 2022', 'Fall 2021', 'Fall 2020', 'Fall 2019', 'Fall 2018', 'Fall 2017']
 csv = st.selectbox('Select a semester', csv_options)
 
 df = pd.read_csv('csv/' + csv + '.csv')
 # combine subject, catalog, and section columns into one column and no duplicate courses
-df['course'] = df['Subject'] + ' ' + df['Catalog Number'] + ' ' + df['Section']
+df['course'] = df['Subject'] + ' ' + df['Catalog Number'] + ' section ' + df['Section']
 # remove the subject, catalog, and section columns, since they are not needed anymore
 # drop all columns except course and grades
 df = df[['course', 'A', 'A-', 'A+', 'B', 'B-', 'B+', 'C', 'C-', 'C+', 'D', 'D-', 'D+', 'F']]

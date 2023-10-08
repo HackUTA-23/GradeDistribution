@@ -98,26 +98,95 @@ gpa_2019 = df_2019.loc[gpa_course]['GPA']
 gpa_2018 = df_2018.loc[gpa_course]['GPA']
 gpa_2017 = df_2017.loc[gpa_course]['GPA']
 
-plt.plot([2022, 2021, 2020, 2019, 2018, 2017], [gpa_2022, gpa_2021, gpa_2020, gpa_2019, gpa_2018, gpa_2017])
-# show values on each point rounded to 2 decimal places
+for df in years:
+    # drop all columns except course and grades
+    df.drop(columns=['A', 'A-', 'A+', 'B', 'B-', 'B+', 'C', 'C-', 'C+', 'D', 'D-', 'D+', 'F'], inplace=True)
+
+# Create a figure with two subplots side-by-side
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+# First subplot: Scaled GPA
+axes[0].plot([2022, 2021, 2020, 2019, 2018, 2017], [gpa_2022, gpa_2021, gpa_2020, gpa_2019, gpa_2018, gpa_2017])
+# Show values on each point rounded to 2 decimal places
 for x, y in zip([2022, 2021, 2020, 2019, 2018, 2017], [gpa_2022, gpa_2021, gpa_2020, gpa_2019, gpa_2018, gpa_2017]):
-    plt.text(x, y, str(round(y, 2)))
-plt.xlabel('Year')
-# change yscale to 4.0 to 0.0
-plt.ylabel('GPA')
-plt.title('GPA for ' + gpa_course + ' Scaled')
-st.pyplot(plt)
+    axes[0].text(x, y, str(round(y, 2)))
+axes[0].set_xlabel('Year')
+axes[0].set_ylabel('GPA')
+axes[0].set_title('GPA for ' + gpa_course + ' Scaled')
+
+# Second subplot: Unscaled GPA
+axes[1].plot([2022, 2021, 2020, 2019, 2018, 2017], [gpa_2022, gpa_2021, gpa_2020, gpa_2019, gpa_2018, gpa_2017], color='orange')
+# Show values on each point rounded to 2 decimal places
+for x, y in zip([2022, 2021, 2020, 2019, 2018, 2017], [gpa_2022, gpa_2021, gpa_2020, gpa_2019, gpa_2018, gpa_2017]):
+    axes[1].text(x, y, str(round(y, 2)))
+axes[1].set_xlabel('Year')
+axes[1].set_ylabel('GPA')
+axes[1].set_ylim(0, 4.0)
+axes[1].set_title('GPA for ' + gpa_course + ' Unscaled')
+# Display the plot in Streamlit
+st.pyplot(fig)
+
+# add table with all df_2022 values
+st.write('Average # of people who got each score for ' + gpa_course)
+# create a new table with the year as the column and the Grades and GPA as the value for that class
+df = pd.DataFrame(columns=['Year', 'As', 'Bs', 'Cs', 'Ds', 'Fs'])
+df['Year'] = [2022, 2021, 2020, 2019, 2018, 2017]
+df['Year'] = df['Year'].astype('string')
+df = df.set_index('Year')
+
+# round to nearest integer
+df['As'] = [round(df_2022.loc[gpa_course]['As']), round(df_2021.loc[gpa_course]['As']), round(df_2020.loc[gpa_course]['As']), round(df_2019.loc[gpa_course]['As']), round(df_2018.loc[gpa_course]['As']), round(df_2017.loc[gpa_course]['As'])] 
+df['Bs'] = [round(df_2022.loc[gpa_course]['Bs']), round(df_2021.loc[gpa_course]['Bs']), round(df_2020.loc[gpa_course]['Bs']), round(df_2019.loc[gpa_course]['Bs']), round(df_2018.loc[gpa_course]['Bs']), round(df_2017.loc[gpa_course]['Bs'])]
+df['Cs'] = [round(df_2022.loc[gpa_course]['Cs']), round(df_2021.loc[gpa_course]['Cs']), round(df_2020.loc[gpa_course]['Cs']), round(df_2019.loc[gpa_course]['Cs']), round(df_2018.loc[gpa_course]['Cs']), round(df_2017.loc[gpa_course]['Cs'])]
+df['Ds'] = [round(df_2022.loc[gpa_course]['Ds']), round(df_2021.loc[gpa_course]['Ds']), round(df_2020.loc[gpa_course]['Ds']), round(df_2019.loc[gpa_course]['Ds']), round(df_2018.loc[gpa_course]['Ds']), round(df_2017.loc[gpa_course]['Ds'])]
+df['Fs'] = [round(df_2022.loc[gpa_course]['Fs']), round(df_2021.loc[gpa_course]['Fs']), round(df_2020.loc[gpa_course]['Fs']), round(df_2019.loc[gpa_course]['Fs']), round(df_2018.loc[gpa_course]['Fs']), round(df_2017.loc[gpa_course]['Fs'])]
+st.write(df)
+
+st.write('Percent grades and average GPA for ' + gpa_course)
+df = pd.DataFrame(columns=['Year', 'A%', 'B%', 'C%', 'D%', 'F%', 'GPA'])
+df['Year'] = [2022, 2021, 2020, 2019, 2018, 2017]
+df['Year'] = df['Year'].astype('string')
+df = df.set_index('Year')
+
+# round to two decimal places
+df['A%'] = [df_2022.loc[gpa_course]['A%'], df_2021.loc[gpa_course]['A%'], df_2020.loc[gpa_course]['A%'], df_2019.loc[gpa_course]['A%'], df_2018.loc[gpa_course]['A%'], df_2017.loc[gpa_course]['A%']]
+df['B%'] = [df_2022.loc[gpa_course]['B%'], df_2021.loc[gpa_course]['B%'], df_2020.loc[gpa_course]['B%'], df_2019.loc[gpa_course]['B%'], df_2018.loc[gpa_course]['B%'], df_2017.loc[gpa_course]['B%']]
+df['C%'] = [df_2022.loc[gpa_course]['C%'], df_2021.loc[gpa_course]['C%'], df_2020.loc[gpa_course]['C%'], df_2019.loc[gpa_course]['C%'], df_2018.loc[gpa_course]['C%'], df_2017.loc[gpa_course]['C%']]
+df['D%'] = [df_2022.loc[gpa_course]['D%'], df_2021.loc[gpa_course]['D%'], df_2020.loc[gpa_course]['D%'], df_2019.loc[gpa_course]['D%'], df_2018.loc[gpa_course]['D%'], df_2017.loc[gpa_course]['D%']]
+df['F%'] = [df_2022.loc[gpa_course]['F%'], df_2021.loc[gpa_course]['F%'], df_2020.loc[gpa_course]['F%'], df_2019.loc[gpa_course]['F%'], df_2018.loc[gpa_course]['F%'], df_2017.loc[gpa_course]['F%']]
+df['GPA'] = [gpa_2022, gpa_2021, gpa_2020, gpa_2019, gpa_2018, gpa_2017]
+
+# round all cells to two decimal places
+df['A%'] = df['A%'].round(2)
+df['B%'] = df['B%'].round(2)
+df['C%'] = df['C%'].round(2)
+df['D%'] = df['D%'].round(2)
+df['F%'] = df['F%'].round(2)
+df['GPA'] = df['GPA'].round(2)
+
+# Format the DataFrame for display in Streamlit
+formatted_df = df.style.format({
+    'A%': '{:.2f}',
+    'B%': '{:.2f}',
+    'C%': '{:.2f}',
+    'D%': '{:.2f}',
+    'F%': '{:.2f}',
+    'GPA': '{:.2f}'
+})
+    
 
 
-plt.plot([2022, 2021, 2020, 2019, 2018, 2017], [gpa_2022, gpa_2021, gpa_2020, gpa_2019, gpa_2018, gpa_2017])
-# show values on each point rounded to 2 decimal places
-for x, y in zip([2022, 2021, 2020, 2019, 2018, 2017], [gpa_2022, gpa_2021, gpa_2020, gpa_2019, gpa_2018, gpa_2017]):
-    plt.text(x, y, str(round(y, 2)))
-plt.xlabel('Year')
-# change yscale to 4.0 to 0.0
-plt.ylim(0, 4.0)
-plt.ylabel('GPA')
-plt.title('GPA for ' + gpa_course + ' Unscaled')
-st.pyplot(plt)
+# Display the formatted DataFrame in Streamlit
+st.write(formatted_df)
+# df = df.round(2)
+# st.table(df)
+
+
+
+
+
+
+
+
 
 
