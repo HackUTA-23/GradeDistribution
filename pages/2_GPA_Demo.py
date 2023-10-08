@@ -8,9 +8,7 @@ st.set_page_config(page_title="GPA Demo", page_icon="📈")
 st.markdown("# GPA Demo")
 st.sidebar.header("GPA Demo")
 st.write(
-    """This demo illustrates a combination of plotting and animation with
-Streamlit. We're generating a bunch of random numbers in a loop for around
-5 seconds. Enjoy!"""
+    """This demo illustrates averaging GPA distribution for a course over the years. This can indicate grade inflation or deflation in a course."""
 )
 
 # Set Matplotlib to interactive mode
@@ -25,16 +23,14 @@ color_map = {
     'F': 'black'
 }
 
-st.title('HackUTA 2023')
-
 csv_options = ['Fall 2022', 'Fall 2021', 'Fall 2020', 'Fall 2019', 'Fall 2018', 'Fall 2017']
 
-df_2022 = pd.read_csv('/Users/amitkulkarni/Documents/GradeDistribution/csv/' + csv_options[0] + '.csv')
-df_2021 = pd.read_csv('/Users/amitkulkarni/Documents/GradeDistribution/csv/' + csv_options[1] + '.csv')
-df_2020 = pd.read_csv('/Users/amitkulkarni/Documents/GradeDistribution/csv/' + csv_options[2] + '.csv')
-df_2019 = pd.read_csv('/Users/amitkulkarni/Documents/GradeDistribution/csv/' + csv_options[3] + '.csv')
-df_2018 = pd.read_csv('/Users/amitkulkarni/Documents/GradeDistribution/csv/' + csv_options[4] + '.csv')
-df_2017 = pd.read_csv('/Users/amitkulkarni/Documents/GradeDistribution/csv/' + csv_options[5] + '.csv')
+df_2022 = pd.read_csv('csv/' + csv_options[0] + '.csv')
+df_2021 = pd.read_csv('csv/' + csv_options[1] + '.csv')
+df_2020 = pd.read_csv('csv/' + csv_options[2] + '.csv')
+df_2019 = pd.read_csv('csv/' + csv_options[3] + '.csv')
+df_2018 = pd.read_csv('csv/' + csv_options[4] + '.csv')
+df_2017 = pd.read_csv('csv/' + csv_options[5] + '.csv')
 
 # do the same for all other dataframes
 def preprocess_dataframe(df):
