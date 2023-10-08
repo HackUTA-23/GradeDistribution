@@ -32,7 +32,7 @@ csv_options = ['Fall 2022', 'Fall 2021', 'Fall 2020', 'Fall 2019', 'Fall 2018', 
 csv = st.selectbox('Select a semester', csv_options)
 
 df = pd.read_csv('csv/' + csv + '.csv')
-# combine subject, catalog, and section columns into one column
+# combine subject, catalog, and section columns into one column and no duplicate courses
 df['course'] = df['Subject'] + ' ' + df['Catalog Number'] + ' ' + df['Section']
 # remove the subject, catalog, and section columns, since they are not needed anymore
 # drop all columns except course and grades
@@ -43,7 +43,7 @@ df = df.set_index('course')
 # add a dropdown with all the courses
 course = st.selectbox('Select a course', df.index)
 # load all sections for the selected course
-sections = df.loc[course]['Section'].unique()
+# sections = st.selectbox('Select a section', df.loc[course].index)
 
 # Streamlit plot for the selected course
 # color the grades using the custom color mapping dictionary
@@ -55,12 +55,4 @@ plt.xlabel('Grades')
 plt.ylabel('Number of Students')
 plt.title('Grade Distribution for ' + course)
 st.pyplot(plt)  # Display the Matplotlib figure in Streamlit
-
-# # graph the same data as percentage
-
-
-# # Optionally, you can disable interactive mode after plotting if you don't plan to create more plots
-# # plt.ioff()
-
-# # GRAPH the average GPA for each course
 
