@@ -2,6 +2,18 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
+st.set_page_config(page_title="Grade Distribution Demo", page_icon="〰️")
+
+st.markdown("# Grade Distribution Demo")
+st.sidebar.header("Grade Distribution Demo")
+st.write(
+    """This demo illustrates a combination of plotting and animation with
+Streamlit. We're generating a bunch of random numbers in a loop for around
+5 seconds. Enjoy!"""
+)
+
+
 # Set Matplotlib to interactive mode
 plt.ion()
 
@@ -14,7 +26,7 @@ color_map = {
     'F': 'black'
 }
 
-st.title('HackUTA 2023')
+st.title('Grade Distribution Analyzer')
 
 csv_options = ['Fall 2022', 'Fall 2021', 'Fall 2020', 'Fall 2019', 'Fall 2018', 'Fall 2017']
 csv = st.selectbox('Select a semester', csv_options)
@@ -30,6 +42,8 @@ df = df.set_index('course')
 
 # add a dropdown with all the courses
 course = st.selectbox('Select a course', df.index)
+# load all sections for the selected course
+sections = df.loc[course]['Section'].unique()
 
 # Streamlit plot for the selected course
 # color the grades using the custom color mapping dictionary
@@ -42,8 +56,11 @@ plt.ylabel('Number of Students')
 plt.title('Grade Distribution for ' + course)
 st.pyplot(plt)  # Display the Matplotlib figure in Streamlit
 
-# graph the same data as percentage
+# # graph the same data as percentage
 
 
-# Optionally, you can disable interactive mode after plotting if you don't plan to create more plots
-# plt.ioff()
+# # Optionally, you can disable interactive mode after plotting if you don't plan to create more plots
+# # plt.ioff()
+
+# # GRAPH the average GPA for each course
+
