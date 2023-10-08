@@ -3,12 +3,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-st.set_page_config(page_title="Grade Distribution Demo", page_icon="〰️")
+st.set_page_config(page_title="Grade Distribution", page_icon="〰️")
 
-st.markdown("# Grade Distribution Demo")
-st.sidebar.header("Grade Distribution Demo")
+st.markdown("# Grade Distribution")
+st.sidebar.header("Grade Distribution")
 st.write(
-    """This demo illustrates a combination of the grade distribution for each class and section over the years. This can indicate grade inflation or deflation in a course. Users can also see the grade distribution as a percentage."""
+    """This illustrates a combination of the grade distribution for each class and section over for the Fall semesters of the past 5 years. 
+    \nThis helps users show which sections in a course have higher/lower grade distribution and individual metrics with # of ppl and percentage scoring each grade letter."""
 )
 
 

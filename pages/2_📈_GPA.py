@@ -3,12 +3,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-st.set_page_config(page_title="GPA Demo", page_icon="📈")
+st.set_page_config(page_title="GPA", page_icon="📈")
 
-st.markdown("# GPA Demo")
-st.sidebar.header("GPA Demo")
+st.markdown("# GPA")
+st.sidebar.header("GPA")
 st.write(
-    """This demo illustrates averaging GPA distribution for a course over the years. This can indicate grade inflation or deflation in a course."""
+    """This illustrates averaging GPA distribution for a course over the past 5 years. It aggregates the GPA distribution for a specific course over the years which makes it easier to identify grade inflation or deflation in a course."""
 )
 
 # Set Matplotlib to interactive mode
@@ -127,7 +127,7 @@ axes[1].set_title('GPA for ' + gpa_course + ' Unscaled')
 st.pyplot(fig)
 
 # add table with all df_2022 values
-st.write('Average # of people who got each score for ' + gpa_course)
+st.write('Average # of people who got each score for ' + '['+ gpa_course + ']')
 # create a new table with the year as the column and the Grades and GPA as the value for that class
 df = pd.DataFrame(columns=['Year', 'As', 'Bs', 'Cs', 'Ds', 'Fs'])
 df['Year'] = [2022, 2021, 2020, 2019, 2018, 2017]
@@ -142,7 +142,7 @@ df['Ds'] = [round(df_2022.loc[gpa_course]['Ds']), round(df_2021.loc[gpa_course][
 df['Fs'] = [round(df_2022.loc[gpa_course]['Fs']), round(df_2021.loc[gpa_course]['Fs']), round(df_2020.loc[gpa_course]['Fs']), round(df_2019.loc[gpa_course]['Fs']), round(df_2018.loc[gpa_course]['Fs']), round(df_2017.loc[gpa_course]['Fs'])]
 st.write(df)
 
-st.write('Percent grades and average GPA for ' + gpa_course)
+st.write('Percent grades and average GPA for ' + '['+ gpa_course + ']')
 df = pd.DataFrame(columns=['Year', 'A%', 'B%', 'C%', 'D%', 'F%', 'GPA'])
 df['Year'] = [2022, 2021, 2020, 2019, 2018, 2017]
 df['Year'] = df['Year'].astype('string')
