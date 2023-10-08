@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 # Set Matplotlib to interactive mode
 plt.ion()
 
-st.title('Hackuta 2023')
+st.title('HackUTA 2023')
 
 df = pd.read_csv('https://raw.githubusercontent.com/HackUTA-23/utd-grades/master/raw_data/Fall%202022.csv')
 # combine subject, catalog, and section columns into one column
@@ -16,9 +16,20 @@ df = df.drop(columns=['P', 'CR', 'NC', 'I', 'W', 'Instructor 1', 'Instructor 2',
 # set the course column as the index
 df = df.set_index('course')
 
-# Streamlit plot
-st.write("## Grade Distribution for " + df.index[0])
-st.bar_chart(df.iloc[0])
+# add a dropdown with all the courses
+course = st.selectbox('Select a course', df.index)
+
+# Streamlit plot for the selected course
+# color the grades different color
+color = ['green', 'blue', 'orange', 'red']
+# 'A+', 'A', 'A-' should be green, 'B+', 'B', 'B-' should be blue, 'C+', 'C', 'C-' should be orange, 'D+', 'D', 'D-' should be red, 'F' should be black
+df.loc[course].plot.bar(color=color)
+
+plt.xticks(rotation=0)
+plt.xlabel('Grades')
+plt.ylabel('Number of Students')
+plt.title('Grade Distribution for ' + course)
+st.pyplot(plt)  # Display the Matplotlib figure in Streamlit
 
 # Optional: If you still want to use Matplotlib for more customization, you can use plt functions like below:
 # plt.bar(df.columns, df.iloc[0])
