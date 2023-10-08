@@ -44,6 +44,7 @@ st.pyplot(plt)  # Display the Matplotlib figure in Streamlit
 
 # graph the same data as percentage
 
+print("hi") 
 
 # Optionally, you can disable interactive mode after plotting if you don't plan to create more plots
 # plt.ioff()
